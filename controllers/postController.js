@@ -2,6 +2,7 @@ const Post = require('../models/post');
 const slugify = require('../utils/slugs');
 const { convertMarkdownToHtml } = require('../utils/markdown'); // Import the utility
 
+
 exports.createPost = async (req, res) => {
     try {
         const { title, content, categories, tags } = req.body;
@@ -31,8 +32,7 @@ exports.getAllPosts = async (req, res) => {
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
-  };
-  exports.getPostBySlug = async (req, res) => {
+  };  exports.getPostBySlug = async (req, res) => {
     try {
       const post = await Post.findOne({ slug: req.params.slug }).populate('categories tags');
       if (!post) return res.status(404).json({ message: 'Post not found' });
@@ -49,8 +49,7 @@ exports.getAllPosts = async (req, res) => {
   
       const updatedPost = await Post.findOneAndUpdate(
         { slug: req.params.slug },
-        { title, content, htmlContent, categories, tags },
-        { new: true }
+            { new: true }
       );
   
       res.status(200).json(updatedPost);
@@ -68,4 +67,4 @@ exports.getAllPosts = async (req, res) => {
     }
   };
 
-// Add other methods (getPosts, getPostById, updatePost, deletePost)
+

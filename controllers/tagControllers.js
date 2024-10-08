@@ -1,5 +1,5 @@
 const Tag = require('../models/Tag');
-const { generateSlug } = require('../utils/slugs');
+const slugify = require('../utils/slugs');
 
 // Create a new tag
 exports.createTag = async (req, res) => {
@@ -7,7 +7,7 @@ exports.createTag = async (req, res) => {
       const { name } = req.body;
   
       // Generate a slug from the tag name
-      const slug = generateSlug(name);
+      const slug = slugify(name);
   
       // Check if a tag with this slug already exists
       const existingTag = await Tag.findOne({ slug });

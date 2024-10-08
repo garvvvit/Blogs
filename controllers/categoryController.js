@@ -1,12 +1,12 @@
 const Category = require('../models/Category');
-const { generateSlug } = require('../utils/slugs');
+const slugify = require('../utils/slugs');
 
 exports.createCategory = async (req, res) => {
     try {
       const { name } = req.body;
       
       // Generate a slug from the name
-      const slug = generateSlug(name); 
+      const slug = slugify(name); 
   
       // Check if the category already exists (based on the slug)
       const existingCategory = await Category.findOne({ slug });
@@ -82,4 +82,4 @@ exports.deleteCategory = async (req, res) => {
     }
   };
 
-// Add other methods (getCategories, getCategoryById, updateCategory, deleteCategory)
+
