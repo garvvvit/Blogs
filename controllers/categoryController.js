@@ -1,4 +1,5 @@
-const Category = require('../models/Category');
+const Category = require('../models/Category'); // Ensure case matches the file name
+
 const slugify = require('../utils/slugs');
 
 exports.createCategory = async (req, res) => {
@@ -30,7 +31,7 @@ exports.createCategory = async (req, res) => {
 
 exports.getAllCategories = async (req,res) => {
     try{
-        const categories = await Category.find();
+        const categories = await Category.find().populate('posts');
         res.status(200).json(categories);
     } catch(error) {
         res.status(400).json({message:error.message});
@@ -41,7 +42,7 @@ exports.getAllCategories = async (req,res) => {
 // Get a category by slug
 exports.getCategoryBySlug = async (req, res) => {
     try {
-      const category = await Category.findOne({ slug: req.params.slug });
+      const category = await Category.findOne({ slug: req.params.slug }).populate('posts');
       if (!category) return res.status(404).json({ message: 'Category not found' });
       res.status(200).json(category);
     } catch (error) {

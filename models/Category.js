@@ -10,8 +10,16 @@ const categorySchema = new mongoose.Schema({
     required: true,
     unique: true,  // Ensure that slugs are unique
   },
+
+ // Array of references to blog posts related to this category
+ posts: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+  }
+],
 });
 
-const Category = mongoose.model('Category', categorySchema);
+const Category = mongoose.models.Category || mongoose.model('Category', categorySchema);
 
 module.exports = Category;
